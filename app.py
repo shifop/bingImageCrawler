@@ -22,11 +22,11 @@ def download_imge(save_path, url):
 
 def run_job(fn1, save_path, url):
     fn1(save_path, url)
-    schedule.every(12).hours.do(fn1, (save_path, url))
+    schedule.every(1).hour.do(fn1, save_path, url)
     while True:
         schedule.run_pending()
-        print('一次')
-        time.sleep(60 * 60)
+        logger.info('===============!!!!=================')
+        time.sleep(60)
 
 
 if __name__ == '__main__':
@@ -34,3 +34,5 @@ if __name__ == '__main__':
     url = 'http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1501558320736&pid=hp'
     print('开启定时任务模块')
     Thread(target=run_job, args=(download_imge, save_path, url)).start()
+    # while True:
+    #     time.sleep(60)
